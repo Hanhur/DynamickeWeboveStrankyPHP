@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php
-        $name = "Daviduv blog";
+        $name = "Daviduv blog!";
     ?>
     <h1><?php echo $name ?></h1>
 </body>
