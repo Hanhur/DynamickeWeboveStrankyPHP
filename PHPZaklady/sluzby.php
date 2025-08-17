@@ -6,9 +6,7 @@
     <title>Sluzby</title>
 </head>
 <body>
-    <header>
-        <h1>Sluzby</h1>
-    </header>
+   <?php require "./assets/header.php"; ?>
 
     <main>
         <section>
@@ -21,8 +19,6 @@
         </section>
     </main>
     
-    <footer>
-        <p>&copy; Všechna práva vyhrazena, David Šetek, 2023</p>
-    </footer>
+    <?php require "./assets/footer.php"; ?>
 </body>
 </html>

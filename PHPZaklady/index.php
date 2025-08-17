@@ -6,10 +6,7 @@
     <title>Naše první stránky</title>
 </head>
 <body>
-    <header>
-        <h1>Davids gaming company</h1>
-    </header>
-
+    <?php require "./assets/header.php"; ?>
     <main>
         <section>
             <h1>Historie firmy</h1>
@@ -24,16 +21,39 @@
             <a href="https://www.google.com/" target="_blank">Vyhledávač Google</a><br>
             <a href="https://www.youtube.com/@MagicMusicGroup" target="_blank">YouTube kanál</a>
         </section>
+        <section> 
+            <ol> 
+                <li>Nůžky</li> 
+                <li>Rozstříhej papír</li> 
+                <li>Slož papír</li> 
+            </ol> 
+            <ul> 
+                <li>Rohlík</li> 
+                <li>Housky</li> 
+                <li>Kečup</li> 
+                <li>Čaj</li> 
+            </ul> 
+            <ul> 
+                <li>
+                    <a href="index.php">Úvodní strana</a>
+                </li> 
+                <li>
+                    <a href="sluzby.php">Služby</a>
+                </li> 
+                <li>
+                    <a href="kontakt.php">Kontakt</a>
+                </li> 
+            </ul> 
+        </section>
         <section>
             <h1>Odkazy na další stránky webu</h1>
             <a href="sluzby.php">Naše služby</a><br>
+            <a href="cenik.php">Cenik</a><br>
             <a href="kontakt.php">Kontaktujte nás</a><br>
             <img src="./img/styles.png" alt="">
         </section>
     </main>
 
-    <footer>
-        <p>&copy; Všechna práva vyhrazena, David Šetek, 2023</p>
-    </footer>
+    <?php require "./assets/footer.php"; ?>
 </body>
 </html>
