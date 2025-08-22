@@ -9,7 +9,7 @@
     {
         $db_host = "127.0.0.1";
         $db_user = "mango";
-        $db_password = "G95!d21#6837";
+        $db_password = "";
         $db_name = "skola";
 
         $connection = mysqli_connect($db_host, $db_user, $db_password, $db_name);
