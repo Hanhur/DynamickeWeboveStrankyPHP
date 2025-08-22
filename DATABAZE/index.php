@@ -41,18 +41,22 @@
 </head>
 
 <body>
-    <header>
-        <h1>Škola čar a kouzel v Bradavicích</h1>
-    </header>
+    <?php require "./assets/header.php"; ?>
+
     <main>
+        <section class="main-heading">
+            <h1>Škola čar a kouzel v Bradavicích</h1>
+        </section>
         <section> 
             <!-- <?php foreach ($students as $one_student): ?>
                 <h2><?= $one_student["first_name"] . " " . $one_student["second_name"] ?></h2> 
             <?php endforeach ?> -->
+            <a href="zaci.php">Seznam všech žáků</a>
         </section>
     </main>
-    <footer></footer>
+
+    <?php require "./assets/footer.php"; ?>
 </body>
 </html>
 
-<!-- Lesson 81 -->
+<!-- Lesson 101 / 121 -->

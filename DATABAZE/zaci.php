@@ -1,22 +1,18 @@
 <?php
-    $db_host = "127.0.0.1";
-    $db_user = "mango";
-    $db_password = "";
-    $db_name = "skola";
-
-    $connection = mysqli_connect($db_host, $db_user, $db_password, $db_name);
-
-    if (mysqli_connect_error()) {
-        echo mysqli_connect_error();
-        exit;
-    }
-    echo "Úspěšné přihlášení do databáze";
+    require_once "./assets/database.php";
 
     $sql = "SELECT * FROM student";
 
     $result = mysqli_query($connection, $sql);
 
-    $students = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if ($result === false) 
+    { 
+        echo mysqli_error($connection); 
+    } 
+    else 
+    { 
+        $students = mysqli_fetch_all($result, MYSQLI_ASSOC); 
+    }
 ?>
 
 <!DOCTYPE html>
@@ -27,15 +23,26 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Seznam žáků školy</h1> 
-    <?php if (empty($students)): ?>
-        <p>Žádní žáci nebyli nalezeni</p> 
-    <?php else: ?>
-        <ul> 
-            <?php foreach ($students as $one_student): ?>
-                <li> <?php echo $one_student["first_name"] . " " . $one_student["second_name"] ?> </li> 
-            <?php endforeach ?>
-        </ul> 
-    <?php endif ?>
+    <?php require "./assets/header.php"; ?>
+    <main>
+        <section class="main-heading"> 
+            <h1>Seznam žáků školy</h1> 
+        </section>
+        <section class="students-list">
+            <?php if (empty($students)): ?>
+                <p>Žádní žáci nebyli nalezeni</p> 
+            <?php else: ?>
+                <ul> 
+                    <?php foreach ($students as $one_student): ?>
+                        <li> <?php echo $one_student["first_name"] . " " . $one_student["second_name"] ?> </li> 
+                        <a href="jeden-zak.php?id=<?= $one_student['id'] ?>">Více informací</a>
+                    <?php endforeach ?>
+                </ul> 
+            <?php endif ?>
+            <a href="index.php">Zpět na úvodní stranu</a>
+        </section>
+    </main>
+
+   <?php require "./assets/footer.php"; ?>
 </body>
 </html>

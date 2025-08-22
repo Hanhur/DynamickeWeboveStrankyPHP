@@ -49,3 +49,12 @@ ORDER BY first_name ASC;
 Seřazení podle jména sestupně (od Z do A)
 SELECT * FROM student
 ORDER BY first_name DESC;
+
+
+SQL příkazy na vložení dat do tabulky================================================================
+
+INSERT INTO student
+VALUES (300, "David", "Šetek", 36, "Podrobnosti o žákovi", "Nebelvír")
+
+INSERT INTO student (first_name, second_name, age)
+VALUES ("Martin", "Krutý", 15)
