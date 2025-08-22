@@ -3,6 +3,8 @@
 
     $sql = "SELECT * FROM student";
 
+    $connection = connectionDB();
+
     $result = mysqli_query($connection, $sql);
 
     if ($result === false) 
@@ -34,7 +36,7 @@
             <?php else: ?>
                 <ul> 
                     <?php foreach ($students as $one_student): ?>
-                        <li> <?php echo $one_student["first_name"] . " " . $one_student["second_name"] ?> </li> 
+                        <li> <?php echo htmlspecialchars($one_student["first_name"]) . " " . htmlspecialchars($one_student["second_name"]) ?> </li> 
                         <a href="jeden-zak.php?id=<?= $one_student['id'] ?>">Více informací</a>
                     <?php endforeach ?>
                 </ul> 

@@ -1,17 +1,19 @@
 <?php
-require_once "./assets/database.php";
+    require "./assets/database.php";
 
-if (isset($_GET["id"]) and is_numeric($_GET["id"])) {
-    $sql = "SELECT * FROM student WHERE id = " . $_GET["id"];
+    $connection = connectionDB();
 
-    $result = mysqli_query($connection, $sql);
+    if (isset($_GET["id"]) and is_numeric($_GET["id"])) {
+        $sql = "SELECT * FROM student WHERE id = " . $_GET["id"];
 
-    if ($result === false) {
-        echo mysqli_error($connection);
-    } else {
-        $students = mysqli_fetch_assoc($result);
+        $result = mysqli_query($connection, $sql);
+
+        if ($result === false) {
+            echo mysqli_error($connection);
+        } else {
+            $students = mysqli_fetch_assoc($result);
+        }
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -34,10 +36,10 @@ if (isset($_GET["id"]) and is_numeric($_GET["id"])) {
                 <?php if ($students === null): ?>
                     <p>Žák nenalezen</p>
                 <?php else: ?>
-                    <h2><?= $students["first_name"] . " " . $students["second_name"] ?></h2>
-                    <p>Věk: <?= $students["age"] ?></p>
-                    <p>Dodatečné informace: <?= $students["life"] ?></p>
-                    <p>Kolej: <?= $students["college"] ?></p>
+                    <h2><?= htmlspecialchars($students["first_name"]) . " " . htmlspecialchars($students["second_name"]) ?></h2>
+                    <p>Věk: <?= htmlspecialchars($students["age"]) ?></p>
+                    <p>Dodatečné informace: <?= htmlspecialchars($students["life"]) ?></p>
+                    <p>Kolej: <?= htmlspecialchars($students["college"]) ?></p>
                 <?php endif ?>
             </section>
         </main>
