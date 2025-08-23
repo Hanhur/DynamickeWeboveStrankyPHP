@@ -58,3 +58,14 @@ VALUES (300, "David", "Šetek", 36, "Podrobnosti o žákovi", "Nebelvír")
 
 INSERT INTO student (first_name, second_name, age)
 VALUES ("Martin", "Krutý", 15)
+
+V tabulce student změň křestní jméno na David u záznamu, který má ID rovno jedné.===================
+UPDATE student
+SET first_name = "David"
+WHERE id = 1
+
+Takto změníme více sloupců najednou===============================================================
+UPDATE student
+SET first_name = "David",
+    second_name = "Potter"
+WHERE id = 305

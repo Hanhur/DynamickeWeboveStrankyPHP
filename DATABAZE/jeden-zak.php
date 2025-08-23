@@ -1,18 +1,13 @@
 <?php
     require "./assets/database.php";
+    require "./assets/zak.php";
 
     $connection = connectionDB();
 
     if (isset($_GET["id"]) and is_numeric($_GET["id"])) {
-        $sql = "SELECT * FROM student WHERE id = " . $_GET["id"];
-
-        $result = mysqli_query($connection, $sql);
-
-        if ($result === false) {
-            echo mysqli_error($connection);
-        } else {
-            $students = mysqli_fetch_assoc($result);
-        }
+        $students = getStudent($connection, $_GET["id"]);
+    } else {
+        $students = null;
     }
 ?>
 
@@ -41,6 +36,9 @@
                     <p>Dodatečné informace: <?= htmlspecialchars($students["life"]) ?></p>
                     <p>Kolej: <?= htmlspecialchars($students["college"]) ?></p>
                 <?php endif ?>
+            </section>
+            <section class="buttons"> 
+                <a href="editace-zaka.php?id=<?= $students['id'] ?>">Editovat</a> 
             </section>
         </main>
 
