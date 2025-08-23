@@ -69,3 +69,11 @@ UPDATE student
 SET first_name = "David",
     second_name = "Potter"
 WHERE id = 305
+
+Příkaz pro vymazání studenta s ID 330===========================================================
+DELETE FROM `student`
+WHERE id = 330
+
+Příkaz pro vymazání studenta s ID 328 nebo 329==============================================
+DELETE FROM `student`
+WHERE id = 328 OR id = 329

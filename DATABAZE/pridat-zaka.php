@@ -1,7 +1,8 @@
 <?php
 // XSS - Cross-site scripting
 
-require "assets/database.php";
+require "./assets/database.php";
+require "./assets/zak.php";
 
 $first_name = null;
 $second_name = null;
@@ -16,34 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $life = $_POST["life"];
     $college = $_POST["college"];
 
-    $sql = "INSERT INTO student (first_name, second_name, age, life, college) VALUES (?, ?, ?, ?, ?)";
-
     $connection = connectionDB();
 
-    $statement = mysqli_prepare($connection, $sql);
-
-    if ($statement === false) {
-        echo mysqli_error($connection);
-    } else {
-        mysqli_stmt_bind_param($statement, "ssiss", $_POST["first_name"], $_POST["second_name"], $_POST["age"], $_POST["life"], $_POST["college"]);
-        if (mysqli_stmt_execute($statement)) {
-            $id = mysqli_insert_id($connection);
-            // echo "Úspěšně vložen žák s id: $id";
-
-            if (isset($_SERVER["HTTPS"]) and $_SERVER["HTTPS"] != "off") {
-                $url_protocol = "https";
-            } else {
-                $url_protocol = "http";
-            }
-
-            // localhost = $_SERTVER["HTTP_HOST"]
-
-            // header("location: jeden-zak.php?id=$id");
-            header("location: $url_protocol://". $_SERVER["HTTP_HOST"]. "/DATABAZE/jeden-zak.php?id=$id");
-        } else {
-            echo mysqli_stmt_error($statement);
-        }
-    }
+    createStudent($connection, $first_name, $second_name, $age, $life, $college);
 }
 ?>
 
@@ -53,6 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/general.css">
+        <link rel="stylesheet" href="./css/header.css">
+        <link rel="stylesheet" href="./query/header-query.css">
+        <script src="https://kit.fontawesome.com/0fe423447.js" crossorigin="anonymous"></script>
         <title>Document</title>
     </head>
 
@@ -64,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </section>
         </main>
         <?php require "assets/footer.php"; ?>
+        <script type="module" src="./js/header.js"></script>
     </body>
 
 </html>

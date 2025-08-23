@@ -1,20 +1,10 @@
 <?php
-    require_once "./assets/database.php";
-
-    $sql = "SELECT * FROM student";
+    require "./assets/database.php";
+    require "./assets/zak.php";
 
     $connection = connectionDB();
+    $students = getAllStudents($connection, "id, first_name, second_name");
 
-    $result = mysqli_query($connection, $sql);
-
-    if ($result === false) 
-    { 
-        echo mysqli_error($connection); 
-    } 
-    else 
-    { 
-        $students = mysqli_fetch_all($result, MYSQLI_ASSOC); 
-    }
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +12,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/general.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./query/header-query.css">
+    <script src="https://kit.fontawesome.com/0fe423447.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -46,5 +40,6 @@
     </main>
 
    <?php require "./assets/footer.php"; ?>
+   <script type="module" src="./js/header.js"></script>
 </body>
 </html>

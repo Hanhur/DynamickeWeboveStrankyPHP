@@ -18,6 +18,10 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/general.css">
+        <link rel="stylesheet" href="./css/header.css">
+        <link rel="stylesheet" href="./query/header-query.css">
+        <script src="https://kit.fontawesome.com/0fe423447.js" crossorigin="anonymous"></script>
         <title>Document</title>
     </head>
 
@@ -39,10 +43,12 @@
             </section>
             <section class="buttons"> 
                 <a href="editace-zaka.php?id=<?= $students['id'] ?>">Editovat</a> 
+                <a href="delete-zak.php?id=<?= $students['id'] ?>">Vymazat</a>
             </section>
         </main>
 
         <?php require "./assets/footer.php"; ?>
+        <script type="module" src="./js/header.js"></script>
     </body>
 
 </html>
