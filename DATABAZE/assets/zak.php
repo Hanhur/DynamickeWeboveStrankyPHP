@@ -57,7 +57,7 @@ function updateStudent($connection, $first_name, $second_name, $age, $life, $col
         mysqli_stmt_bind_param($stmt, "ssissi", $first_name, $second_name, $age, $life, $college, $id);
 
         if (mysqli_stmt_execute($stmt)) {
-            redirectUrl("/DATABAZE/jeden-zak.php?id=$id");
+            redirectUrl("/DATABAZE/admin/jeden-zak.php?id=$id");
         }
     }
 }
@@ -84,7 +84,7 @@ function deleteStudent($connection, $id)
         mysqli_stmt_bind_param($stmt, "i", $id);
 
         if (mysqli_stmt_execute($stmt)) {
-            redirectUrl("/DATABAZE/zaci.php");
+            redirectUrl("/DATABAZE/admin/zaci.php");
         }
     }
 }
@@ -139,7 +139,7 @@ function createStudent($connection, $first_name, $second_name, $age, $life, $col
 
         if (mysqli_stmt_execute($statement)) {
             $id = mysqli_insert_id($connection);
-            redirectUrl("/DATABAZE/jeden-zak.php?id=$id");
+            redirectUrl("/DATABAZE/admin/jeden-zak.php?id=$id");
         } else {
             echo mysqli_stmt_error($statement);
         }

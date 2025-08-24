@@ -43,30 +43,28 @@ D - delete - vymazat záznam
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
         <link rel="stylesheet" href="./css/general.css">
         <link rel="stylesheet" href="./css/header.css">
         <link rel="stylesheet" href="./query/header-query.css">
+        <link rel="stylesheet" href="./css/footer.css">
+
+        <link rel="stylesheet" href="./css/index.css">
+        <link rel="stylesheet" href="./query/index-query.css">
+
         <script src="https://kit.fontawesome.com/0fe423447.js" crossorigin="anonymous"></script>
+
         <title>Document</title>
     </head>
 
     <body>
         <?php require "./assets/header.php"; ?>
 
-        <!-- <i class="fa-solid fa-bars"></i> 
-        <i class="fa-solid fa-xmark"></i> -->
-        
-
-
         <main>
-            <section class="main-heading">
-                <h1>Škola čar a kouzel v Bradavicích</h1>
-            </section>
-            <section>
-                <!-- <?php foreach ($students as $one_student): ?>
-                <h2><?= $one_student["first_name"] . " " . $one_student["second_name"] ?></h2> 
-            <?php endforeach ?> -->
-                <a href="zaci.php">Seznam všech žáků</a>
+            <section class="main-heading"> 
+                <img src="./img/hogwarts-logo.png" alt="Bradavice logo">
+                <h1>Škola čar a&nbsp;kouzel</h1>
+                <h2>Bradavice</h2>
             </section>
         </main>
 
@@ -76,4 +74,4 @@ D - delete - vymazat záznam
 
 </html>
 
-<!-- Lesson 151 / 190 -->
+<!-- Lesson 171 / 218 -->
