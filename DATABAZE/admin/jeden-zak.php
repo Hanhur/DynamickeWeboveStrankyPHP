@@ -1,6 +1,13 @@
 <?php
     require "../assets/database.php";
     require "../assets/zak.php";
+    require "../assets/auth.php"; 
+    
+    session_start(); 
+    
+    if ( !isLoggedIn() ){ 
+        die("Nepovolený přístup");
+    }
 
     $connection = connectionDB();
 
