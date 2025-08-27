@@ -1,5 +1,4 @@
 <?php
-require "url.php";
 /** 
  * 
  * Získá jednoho žáka z databáze podle ID 
@@ -41,7 +40,7 @@ function getStudent($connection, $id, $columns = "*")
  * @param string $college - kolej žáka 
  * @param integer $id - id žáka 
  * 
- * @return void 
+ * @return boolean true - pokud je updatování žáka úspěšné
  * 
  */
 
@@ -57,7 +56,7 @@ function updateStudent($connection, $first_name, $second_name, $age, $life, $col
         mysqli_stmt_bind_param($stmt, "ssissi", $first_name, $second_name, $age, $life, $college, $id);
 
         if (mysqli_stmt_execute($stmt)) {
-            redirectUrl("/DATABAZE/admin/jeden-zak.php?id=$id");
+            return true;
         }
     }
 }
@@ -69,7 +68,7 @@ function updateStudent($connection, $first_name, $second_name, $age, $life, $col
  * @param object $connection - propojení s databází 
  * @param integer $id - id daného žáka 
  * 
- * @return void 
+ * @return boolean true - pokud dojde k úspěšnému vymazání žáka
  */
 
 function deleteStudent($connection, $id)
@@ -84,7 +83,7 @@ function deleteStudent($connection, $id)
         mysqli_stmt_bind_param($stmt, "i", $id);
 
         if (mysqli_stmt_execute($stmt)) {
-            redirectUrl("/DATABAZE/admin/zaci.php");
+            return true;
         }
     }
 }
@@ -123,7 +122,7 @@ function getAllStudents($connection, $columns = "*")
 * @param string $life - podrobnosti o žákovi 
 * @param string $college - kolej žáka 
 * 
-* @return void 
+* @return int $id - id přidaného žáka
 */
 
 function createStudent($connection, $first_name, $second_name, $age, $life, $college)
@@ -139,7 +138,7 @@ function createStudent($connection, $first_name, $second_name, $age, $life, $col
 
         if (mysqli_stmt_execute($statement)) {
             $id = mysqli_insert_id($connection);
-            redirectUrl("/DATABAZE/admin/jeden-zak.php?id=$id");
+            return true;
         } else {
             echo mysqli_stmt_error($statement);
         }

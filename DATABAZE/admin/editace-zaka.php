@@ -2,6 +2,7 @@
     require "../assets/database.php";
     require "../assets/zak.php";
     require "../assets/auth.php"; 
+    require "../assets/url.php";
     
     session_start(); 
     
@@ -35,10 +36,11 @@
         $life = $_POST["life"];
         $college = $_POST["college"];
 
-        updateStudent($connection, $first_name, $second_name, $age, $life, $college, $id);
-
+        if(updateStudent($connection, $first_name, $second_name, $age, $life, $college, $id))
+        {
+            redirectUrl("/DATABAZE/admin/jeden-zak.php?id=$id");
+        }
     }
-
 ?>
 
 <!DOCTYPE html>
