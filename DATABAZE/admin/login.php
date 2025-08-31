@@ -1,18 +1,20 @@
 <?php
-require "../assets/database.php";
-require "../assets/url.php";
-require "../assets/user.php";
+require "../classes/Database.php";
+require "../classes/Url.php";
+require "../classes/User.php";
 
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $conn = connectionDB();
+    $database = new Database(); 
+    $connection = $database->connectionDB();
+
     $log_email = $_POST["login-email"];
     $log_password = $_POST["login-password"];
 
-    if (authentication($conn, $log_email, $log_password)) {
+    if (User::authentication($connection, $log_email, $log_password)) {
         // Získání ID uživatele 
-        $id = getUserId($conn, $log_email);
+        $id = User::getUserId($connection, $log_email);
 
         // Zabraňuje provedení tzv. fixation attack. Více zde: https://owasp.org/www-community/attacks/Session_fixation 
         session_regenerate_id(true);
@@ -23,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Nastavení ID uživatele 
         $_SESSION["logged_in_user_id"] = $id;
 
-        redirectUrl("/DATABAZE/admin/zaci.php");
+        Url::redirectUrl("/DATABAZE/admin/zaci.php");
     } else {
         // Neúspěšné přihlášení 
         $error = "Chyba při přihlášení";

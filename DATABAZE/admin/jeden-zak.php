@@ -1,18 +1,19 @@
 <?php
-    require "../assets/database.php";
-    require "../assets/zak.php";
-    require "../assets/auth.php"; 
+    require "../classes/Database.php";
+    require "../classes/Student.php";
+    require "../classes/Auth.php";
     
     session_start(); 
     
-    if ( !isLoggedIn() ){ 
+    if ( !Auth::isLoggedIn() ){ 
         die("Nepovolený přístup");
     }
 
-    $connection = connectionDB();
+    $database = new Database(); 
+    $connection = $database->connectionDB();
 
     if (isset($_GET["id"]) and is_numeric($_GET["id"])) {
-        $students = getStudent($connection, $_GET["id"]);
+        $students = Student::getStudent($connection, $_GET["id"]);
     } else {
         $students = null;
     }

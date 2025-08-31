@@ -1,21 +1,22 @@
 <?php
-    require "../assets/database.php";
-    require "../assets/zak.php";
-    require "../assets/auth.php"; 
-    require "../assets/url.php";
+    require "../classes/Database.php";
+    require "../classes/Student.php";
+    require "../classes/Auth.php";
+    require "../classes/Url.php";
     
     session_start(); 
     
-    if ( !isLoggedIn() ){ 
+    if ( !Auth::isLoggedIn() ){ 
         die("Nepovolený přístup");
     }
 
-    $connection = connectionDB();
+    $database = new Database(); 
+    $connection = $database->connectionDB();
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        if(deleteStudent($connection, $_GET["id"]))
+        if(Student::deleteStudent($connection, $_GET["id"]))
         {
-            redirectUrl("/DATABAZE/admin/zaci.php");
+            Url::redirectUrl("/DATABAZE/admin/zaci.php");
         }
     }
 ?>

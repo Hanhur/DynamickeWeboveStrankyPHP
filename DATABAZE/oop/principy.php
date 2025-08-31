@@ -33,32 +33,35 @@ class Ucet
     {
     }
 
-    function description()
+    static function description()
     {
         echo "Na vašem účtu je zůstatek XY Kč";
     }
 }
 
-class Bankaccount extends Ucet
-{
-}
-class Saveaccount extends Ucet
-{
-}
-class Businessaccount extends Ucet
-{
-    function description()
-    {
-        echo parent::description() . " Podnikatelé u nás mají vždy dveře otevřené";
-    }
-}
+// class Bankaccount extends Ucet
+// {
+// }
+// class Saveaccount extends Ucet
+// {
+// }
+// class Businessaccount extends Ucet
+// {
+//     function description()
+//     {
+//         echo parent::description() . " Podnikatelé u nás mají vždy dveře otevřené";
+//     }
+// }
 
-// použití
-$account1 = new Bankaccount("David", "Šetek", 1234);
-$account1->description();
+// // použití
+// $account1 = new Bankaccount("David", "Šetek", 1234);
+// $account1->description();
 
-echo "<br>";
+// echo "<br>";
 
-$account2 = new Businessaccount("Harry", "Potter", 9875);
-$account2->description();
+// $account2 = new Businessaccount("Harry", "Potter", 9875);
+// $account2->description();
+
+Ucet::description();
+
 ?>

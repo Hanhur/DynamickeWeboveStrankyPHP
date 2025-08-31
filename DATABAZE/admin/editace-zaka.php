@@ -1,19 +1,20 @@
 <?php
-    require "../assets/database.php";
-    require "../assets/zak.php";
-    require "../assets/auth.php"; 
-    require "../assets/url.php";
+    require "../classes/Database.php";
+    require "../classes/Student.php"; 
+    require "../classes/Auth.php";
+    require "../classes/Url.php";
     
     session_start(); 
     
-    if ( !isLoggedIn() ){ 
+    if ( !Auth::isLoggedIn() ){ 
         die("Nepovolený přístup");
     }
 
-    $connection = connectionDB();
+    $database = new Database(); 
+    $connection = $database->connectionDB();
 
     if (isset($_GET["id"]) and is_numeric($_GET["id"])) {
-        $one_student = getStudent($connection, $_GET["id"]);
+        $one_student = Student::getStudent($connection, $_GET["id"]);
 
         if ($one_student) {
             $first_name = $one_student["first_name"];
@@ -36,9 +37,9 @@
         $life = $_POST["life"];
         $college = $_POST["college"];
 
-        if(updateStudent($connection, $first_name, $second_name, $age, $life, $college, $id))
+        if(Student::updateStudent($connection, $first_name, $second_name, $age, $life, $college, $id))
         {
-            redirectUrl("/DATABAZE/admin/jeden-zak.php?id=$id");
+            Url::redirectUrl("/DATABAZE/admin/jeden-zak.php?id=$id");
         }
     }
 ?>
