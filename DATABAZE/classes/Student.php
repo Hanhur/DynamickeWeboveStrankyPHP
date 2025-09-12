@@ -16,20 +16,18 @@ class Student
     {
         $sql = "SELECT $columns FROM student WHERE id = :id";
 
-        // $stmt = mysqli_prepare($connection, $sql);
         $stmt = $connection->prepare($sql);
 
-        if ($stmt === false) {
-            echo mysqli_error($connection);
-        } else {
-            // mysqli_stmt_bind_param($stmt, "i", $id);
-            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        try {
             if ($stmt->execute()) {
-                // $result = mysqli_stmt_get_result($stmt);
-                // return mysqli_fetch_array($result, MYSQLI_ASSOC);
                 return $stmt->fetch();
+            } else {
+                throw new Exception("Získání dat o jednom studentovi selhalo");
             }
+        } catch (Exception $e) {
+            error_log("Chyba u funkce getStudent, získání dat selhalo\n", 3, "../errors/error.log");
+            echo "Typ chyby: " . $e->getMessage();
         }
     }
     // =====================================================================================================================================
@@ -53,23 +51,24 @@ class Student
     {
         $sql = "UPDATE student SET first_name = :first_name, second_name = :second_name, age = :age, life = :life, college = :college WHERE id = :id";
 
-        // $stmt = mysqli_prepare($connection, $sql);
         $stmt = $connection->prepare($sql);
 
-        if (!$stmt) {
-            echo mysqli_error($connection);
-        } else {
-            // mysqli_stmt_bind_param($stmt, "ssissi", $first_name, $second_name, $age, $life, $college, $id);
-            $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
-            $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
-            $stmt->bindValue(":age", $age, PDO::PARAM_INT);
-            $stmt->bindValue(":life", $life, PDO::PARAM_STR);
-            $stmt->bindValue(":college", $college, PDO::PARAM_STR);
-            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
+        $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
+        $stmt->bindValue(":age", $age, PDO::PARAM_INT);
+        $stmt->bindValue(":life", $life, PDO::PARAM_STR);
+        $stmt->bindValue(":college", $college, PDO::PARAM_STR);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
 
+        try {
             if ($stmt->execute()) {
                 return true;
+            } else {
+                throw new Exception("Získání dat o jednom studentovi selhalo");
             }
+        } catch (Exception $e) {
+            error_log("Chyba u funkce getStudent, získání dat selhalo\n", 3, "../errors/error.log");
+            echo "Typ chyby: " . $e->getMessage();
         }
     }
     // =========================================================================================================================================
@@ -87,18 +86,19 @@ class Student
     {
         $sql = "DELETE FROM student WHERE id = :id";
 
-        // $stmt = mysqli_prepare($connection, $sql);
         $stmt = $connection->prepare($sql);
 
-        if ($stmt === false) {
-            echo mysqli_error($connection);
-        } else {
-            // mysqli_stmt_bind_param($stmt, "i", $id);
-            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
 
+        try {
             if ($stmt->execute()) {
                 return true;
+            } else {
+                throw new Exception("Získání dat o jednom studentovi selhalo");
             }
+        } catch (Exception $e) {
+            error_log("Chyba u funkce getStudent, získání dat selhalo\n", 3, "../errors/error.log");
+            echo "Typ chyby: " . $e->getMessage();
         }
     }
     // =============================================================================================================================================
@@ -115,19 +115,18 @@ class Student
     {
         $sql = "SELECT $columns FROM student";
 
-        // $result = mysqli_query($connection, $sql);
         $stmt = $connection->prepare($sql);
 
-        if ($stmt->execute()) {
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            if ($stmt->execute()) {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                throw new Exception("Získání dat o jednom studentovi selhalo");
+            }
+        } catch (Exception $e) {
+            error_log("Chyba u funkce getStudent, získání dat selhalo\n", 3, "../errors/error.log");
+            echo "Typ chyby: " . $e->getMessage();
         }
-
-        // if ($result === false) {
-        //     echo mysqli_error($connection);
-        // } else {
-        //     $allStudents = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        //     return $allStudents;
-        // }
     }
     // ==================================================================================================================================================
     /** 
@@ -148,25 +147,24 @@ class Student
     {
         $sql = "INSERT INTO student (first_name, second_name, age, life, college) VALUES (:first_name, :second_name, :age, :life, :college)";
 
-        // $statement = mysqli_prepare($connection, $sql);
         $stmt = $connection->prepare($sql);
 
-        if ($stmt === false) {
-            echo mysqli_error($connection);
-        } else {
-            // mysqli_stmt_bind_param($stm, "ssiss", $first_name, $second_name, $age, $life, $college);
-            $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
-            $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
-            $stmt->bindValue(":age", $age, PDO::PARAM_INT);
-            $stmt->bindValue(":life", $life, PDO::PARAM_STR);
-            $stmt->bindValue(":college", $college, PDO::PARAM_STR);
+        $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
+        $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
+        $stmt->bindValue(":age", $age, PDO::PARAM_INT);
+        $stmt->bindValue(":life", $life, PDO::PARAM_STR);
+        $stmt->bindValue(":college", $college, PDO::PARAM_STR);
 
+        try {
             if ($stmt->execute()) {
-                $id = $connection->lastInsertId(); 
+                $id = $connection->lastInsertId();
                 return $id;
-            } //else {
-            //     echo mysqli_stmt_error($stm);
-            // }
+            } else {
+                throw new Exception("Získání dat o jednom studentovi selhalo");
+            }
+        } catch (Exception $e) {
+            error_log("Chyba u funkce getStudent, získání dat selhalo\n", 3, "../errors/error.log");
+            echo "Typ chyby: " . $e->getMessage();
         }
     }
 }

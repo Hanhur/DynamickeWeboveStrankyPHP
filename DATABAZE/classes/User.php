@@ -17,23 +17,23 @@ class User
     {
         $sql = "INSERT INTO user (first_name, second_name, email, password) VALUES (:first_name, :second_name, :email, :password)";
 
-        // $statement = mysqli_prepare($connection, $sql);
         $stmt = $connection->prepare($sql);
 
-        if ($stmt === false) {
-            echo mysqli_error($connection);
-        } else {
-            // mysqli_stmt_bind_param($stm, "ssss", $first_name, $second_name, $email, $password);
-            $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
-            $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
-            $stmt->bindValue(":email", $email, PDO::PARAM_STR);
-            $stmt->bindValue(":password", $password, PDO::PARAM_STR);
+        $stmt->bindValue(":first_name", $first_name, PDO::PARAM_STR);
+        $stmt->bindValue(":second_name", $second_name, PDO::PARAM_STR);
+        $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+        $stmt->bindValue(":password", $password, PDO::PARAM_STR);
 
-            // mysqli_stmt_execute($stm);
-            $stmt->execute();
-           
-            $id = $connection->lastInsertId();
-            return $id;
+        try {
+            if ($stmt->execute()) {
+                $id = $connection->lastInsertId();
+                return $id;
+            } else {
+                throw new Exception("Vytvoření uživatele selhalo");
+            }
+        } catch (Exception $e) {
+            error_log("Chyba u funkce createUser\n", 3, "../errors/error.log");
+            echo "Typ chyby: " . $e->getMessage();
         }
     }
     // ==================================================================================================================================================
@@ -52,35 +52,21 @@ class User
     {
         $sql = "SELECT password FROM user WHERE email = :email";
 
-        // $stmt = mysqli_prepare($connection, $sql);
         $stmt = $connection->prepare($sql);
 
-        if ($stmt) {
-            // mysqli_stmt_bind_param($stmt, "s", $log_email);
-            $stmt->bindValue(":email", $log_email, PDO::PARAM_STR);
+        $stmt->bindValue(":email", $log_email, PDO::PARAM_STR);
 
-            $stmt->execute();
-
-            if ($user = $stmt->fetch()){ 
-                return password_verify($log_password, $user[0]); 
+        try {
+            if ($stmt->execute()) {
+                if ($user = $stmt->fetch()) {
+                    return password_verify($log_password, $user[0]);
+                }
+            } else {
+                throw new Exception("Vytvoření uživatele selhalo");
             }
-
-            // if (mysqli_stmt_execute($stmt)) {
-            //     $result = mysqli_stmt_get_result($stmt);
-
-            //     if ($result->num_rows != 0) {
-            //         $password_database = mysqli_fetch_row($result); // zde je v proměnné pole 
-            //         $user_password_database = $password_database[0]; // zde je v proměnné string 
-
-            //         if ($user_password_database) {
-            //             return password_verify($log_password, $user_password_database);
-            //         }
-            //     } else {
-            //         echo "Chyba při zadávání emailu";
-            //     }
-            // }
-        } else {
-            echo mysqli_error($connection);
+        } catch (Exception $e) {
+            error_log("Chyba u funkce createUser\n", 3, "../errors/error.log");
+            echo "Typ chyby: " . $e->getMessage();
         }
     }
     // =========================================================================================================================
@@ -98,24 +84,21 @@ class User
     {
         $sql = "SELECT id FROM user WHERE email = :email";
 
-        // $stmt = mysqli_prepare($connection, $sql);
         $stmt = $connection->prepare($sql);
 
-        if ($stmt) {
-            // mysqli_stmt_bind_param($stmt, "s", $email);
-            $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+        $stmt->bindValue(":email", $email, PDO::PARAM_STR);
 
+        try {
             if ($stmt->execute()) {
-                // $result = mysqli_stmt_get_result($stmt);
-                // $id_database = mysqli_fetch_row($result); // pole 
-                // $user_id = $id_database[0];
-
-                $result = $stmt->fetch(); 
+                $result = $stmt->fetch();
                 $user_id = $result[0];
                 return $user_id;
+            } else {
+                throw new Exception("Vytvoření uživatele selhalo");
             }
-        } else {
-            echo mysqli_error($connection);
+        } catch (Exception $e) {
+            error_log("Chyba u funkce createUser\n", 3, "../errors/error.log");
+            echo "Typ chyby: " . $e->getMessage();
         }
     }
 }
