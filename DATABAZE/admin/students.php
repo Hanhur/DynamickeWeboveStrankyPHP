@@ -42,7 +42,7 @@
                 <ul> 
                     <?php foreach ($students as $one_student): ?>
                         <li> <?php echo htmlspecialchars($one_student["first_name"]) . " " . htmlspecialchars($one_student["second_name"]) ?> </li> 
-                        <a href="jeden-zak.php?id=<?= $one_student['id'] ?>">Více informací</a>
+                        <a href="one-student.php?id=<?= $one_student['id'] ?>">Více informací</a>
                     <?php endforeach ?>
                 </ul> 
             <?php endif ?>

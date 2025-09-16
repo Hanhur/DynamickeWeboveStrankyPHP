@@ -1,7 +1,8 @@
 <?php
     require "../classes/Database.php";
-    require "../classes/Student.php";
+    require "../classes/Student.php"; 
     require "../classes/Auth.php";
+    require "../classes/Url.php";
     
     session_start(); 
     
@@ -13,9 +14,33 @@
     $connection = $database->connectionDB();
 
     if (isset($_GET["id"]) and is_numeric($_GET["id"])) {
-        $students = Student::getStudent($connection, $_GET["id"]);
+        $one_student = Student::getStudent($connection, $_GET["id"]);
+
+        if ($one_student) {
+            $first_name = $one_student["first_name"];
+            $second_name = $one_student["second_name"];
+            $age = $one_student["age"];
+            $life = $one_student["life"];
+            $college = $one_student["college"];
+            $id = $one_student["id"];
+        } else {
+            die("Student nenalezen");
+        }
     } else {
-        $students = null;
+        die("ID není zadáno, student nebyl nalezen");
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $first_name = $_POST["first_name"];
+        $second_name = $_POST["second_name"];
+        $age = $_POST["age"];
+        $life = $_POST["life"];
+        $college = $_POST["college"];
+
+        if(Student::updateStudent($connection, $first_name, $second_name, $age, $life, $college, $id))
+        {
+            Url::redirectUrl("/DATABAZE/admin/one-student.php?id=$id");
+        }
     }
 ?>
 
@@ -36,25 +61,8 @@
 
     <body>
         <?php require "../assets/admin-header.php"; ?>
-        <main>
-            <section class="main-heading">
-                <h1>Informace o žákovi</h1>
-            </section>
-            <section>
-                <?php if ($students === null): ?>
-                    <p>Žák nenalezen</p>
-                <?php else: ?>
-                    <h2><?= htmlspecialchars($students["first_name"]) . " " . htmlspecialchars($students["second_name"]) ?></h2>
-                    <p>Věk: <?= htmlspecialchars($students["age"]) ?></p>
-                    <p>Dodatečné informace: <?= htmlspecialchars($students["life"]) ?></p>
-                    <p>Kolej: <?= htmlspecialchars($students["college"]) ?></p>
-                <?php endif ?>
-            </section>
-            <section class="buttons"> 
-                <a href="editace-zaka.php?id=<?= $students['id'] ?>">Editovat</a> 
-                <a href="delete-zak.php?id=<?= $students['id'] ?>">Vymazat</a>
-            </section>
-        </main>
+
+        <?php require "../assets/formular-zak.php"; ?>
 
         <?php require "../assets/footer.php"; ?>
         <script type="module" src="../js/header.js"></script>

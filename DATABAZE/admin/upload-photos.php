@@ -3,6 +3,7 @@
 require "../classes/Database.php";
 require "../classes/Auth.php";
 require "../classes/Url.php";
+require "../classes/Image.php";
 
 session_start();
 
@@ -26,8 +27,7 @@ if (isset($_POST["submit"]) && isset($_FILES["image"])) {
 
     if ($error === 0) {
         if ($image_size > 9000000) {
-            $error_message = "Váš soubor je příliš veliký";
-            echo $error_message;
+            Url::redirectUrl("/DATABAZE/errors/error-page.php?error_text=Váš soubor je příliš veliký");
         } else {
             $image_extension = pathinfo($image_name, PATHINFO_EXTENSION);
             $image_extension_lower_case = strtolower($image_extension);
@@ -36,12 +36,25 @@ if (isset($_POST["submit"]) && isset($_FILES["image"])) {
             if (in_array($image_extension_lower_case, $allowed_extensions)) {
                 //sestavujeme unikátní název obrázku 
                 $new_image_name = uniqid("IMG-", true) . "." . $image_extension;
+
+                if (!file_exists("../uploads/" . $user_id)) {
+                    mkdir("../uploads/" . $user_id, 0777, true);
+                }
+
+                $image_upload_path = "../uploads/" . $user_id . "/" . $new_image_name;
+                move_uploaded_file($image_tmp_name, $image_upload_path);
+
+                // Vložení obrázku do databáze 
+                if (Image::insertImage($connection, $user_id, $new_image_name)) {
+                    Url::redirectUrl("/DATABAZE/admin/photos.php");
+                }
+
             } else {
-                Url::redirectUrl("/DATABAZE/admin/photos.php");
+                Url::redirectUrl("/DATABAZE/errors/error-page.php?error_text=Koncovka vašeho souboru není povolená");
             }
         }
     } else {
-        Url::redirectUrl("/DATABAZE/admin/photos.php");
+        Url::redirectUrl("/DATABAZE/errors/error-page.php?error_text=Nahrání obrázku se bohužel nepodařilo");
     }
 }
 
