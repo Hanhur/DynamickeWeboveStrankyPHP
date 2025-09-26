@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../query/header-query.css">
         <link rel="stylesheet" href="../css/footer.css">
+        <link rel="stylesheet" href="../css/admin-photos.css">
         <script src="https://kit.fontawesome.com/0fe3234472.js" crossorigin="anonymous"></script>
         <title>Document</title>
     </head>
@@ -45,8 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <section class="upload-photos">
                 <h1>Fotky</h1>
                 <form action="upload-photos.php" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="image" require>
-                    <input type="submit" name="submit" value="Nahrát obrázek">
+                    <label for="choose-file" id="choose-file-text">Vybrat obrázek</label>
+                    <input type="file" id="choose-file" name="image" require>
+                    <input class="upload-file" type="submit" name="submit" value="Nahrát obrázek">
                 </form>
             </section>
             <section class="images">

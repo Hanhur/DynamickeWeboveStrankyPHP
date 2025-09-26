@@ -48,6 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <link rel="stylesheet" href="../css/header.css">
         <link rel="stylesheet" href="../query/header-query.css">
         <link rel="stylesheet" href="../css/footer.css">
+        <link rel="stylesheet" href="../css/admin-add-student.css"> 
+        <link rel="stylesheet" href="../query/admin-add-student-query.css">
         <script src="https://kit.fontawesome.com/0fe423447.js" crossorigin="anonymous"></script>
         <title>Document</title>
     </head>
@@ -56,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <?php require "../assets/admin-header.php"; ?>
         <main>
             <section class="add-form">
-                <?php require "../assets/formular-zak.php"; ?>
+                <?php require "../assets/form-student.php"; ?>
             </section>
         </main>
         <?php require "../assets/footer.php"; ?>

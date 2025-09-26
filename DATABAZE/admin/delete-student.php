@@ -10,6 +10,8 @@
         die("Nepovolený přístup");
     }
 
+    $role = $_SESSION["role"];
+
     $database = new Database(); 
     $connection = $database->connectionDB();
 
@@ -37,13 +39,19 @@
     <?php require "../assets/admin-header.php"; ?>
 
     <main>
-        <section class="delete-form">
-            <form method="POST">
-                <p>Jste si jisti, že chcete tohoto žáka smazat?</p> 
-                <button>Smazat</button> 
-                <a href="one-student.php?id=<?= $_GET['id'] ?>">Zrušit</a>
-            </form>
-        </section>
+        <?php if($role === "admin"): ?>
+            <section class="delete-form">
+                <form method="POST">
+                    <p>Jste si jisti, že chcete tohoto žáka smazat?</p> 
+                    <button>Smazat</button> 
+                    <a href="one-student.php?id=<?= $_GET['id'] ?>">Zrušit</a>
+                </form>
+            </section>
+        <?php else: ?>
+            <section> 
+                <h1>Obsah této stránky je k dispozici pouze administrátorům</h1> 
+            </section>
+        <?php endif; ?>
     </main> 
 
     <?php require "../assets/footer.php"; ?>

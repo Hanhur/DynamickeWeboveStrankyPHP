@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../query/header-query.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/admin-students.css">
     <script src="https://kit.fontawesome.com/0fe423447.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
@@ -35,21 +36,27 @@
         <section class="main-heading"> 
             <h1>Seznam žáků školy</h1> 
         </section>
+        <section class="filter"> 
+            <input type="text" class="filter-input"> 
+        </section>
         <section class="students-list">
             <?php if (empty($students)): ?>
                 <p>Žádní žáci nebyli nalezeni</p> 
             <?php else: ?>
-                <ul> 
+                <div class="all-students">
                     <?php foreach ($students as $one_student): ?>
-                        <li> <?php echo htmlspecialchars($one_student["first_name"]) . " " . htmlspecialchars($one_student["second_name"]) ?> </li> 
-                        <a href="one-student.php?id=<?= $one_student['id'] ?>">Více informací</a>
+                        <div class="one-student">
+                            <h2><?php echo htmlspecialchars($one_student["first_name"]) . " " . htmlspecialchars($one_student["second_name"]) ?></h2> 
+                            <a href="one-student.php?id=<?= $one_student['id'] ?>">Více informací</a>
+                        </div>
                     <?php endforeach ?>
-                </ul> 
+                </div> 
             <?php endif ?>
         </section>
     </main>
 
    <?php require "../assets/footer.php"; ?>
    <script type="module" src="../js/header.js"></script>
+   <script type="module" src="../js/filter.js"></script>
 </body>
 </html>

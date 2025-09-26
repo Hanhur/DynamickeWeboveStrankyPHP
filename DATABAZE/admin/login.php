@@ -25,6 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Nastavení ID uživatele 
         $_SESSION["logged_in_user_id"] = $id;
 
+        // Nastavení role uživatele 
+        $_SESSION["role"] = User::getUserRole($connection, $id);
+
         Url::redirectUrl("/DATABAZE/admin/students.php");
     } else {
         // Neúspěšné přihlášení 
