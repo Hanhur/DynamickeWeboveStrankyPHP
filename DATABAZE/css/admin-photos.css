@@ -37,3 +37,31 @@ main {
     margin-bottom: 20px;
     padding: 5px 10px;
 }
+
+/* Images section */
+.images article {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.images img {
+    width: 300px;
+}
+.images-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.images-btn a {
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+}
+.images-btn-download {
+    background-color: #a17e20;
+}
+.images-btn-delete {
+    background-color: red;
+}

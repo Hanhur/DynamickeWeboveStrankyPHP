@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../query/header-query.css">
     <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../css/admin-delete-student.css">
     <script src="https://kit.fontawesome.com/0fe423447.js" crossorigin="anonymous"></script>
     <title>Smazat žáka</title>
 </head>
@@ -43,13 +44,15 @@
             <section class="delete-form">
                 <form method="POST">
                     <p>Jste si jisti, že chcete tohoto žáka smazat?</p> 
-                    <button>Smazat</button> 
-                    <a href="one-student.php?id=<?= $_GET['id'] ?>">Zrušit</a>
+                    <div class="btns">
+                        <button>Smazat</button> 
+                        <a href="one-student.php?id=<?= $_GET['id'] ?>">Zrušit</a>
+                    </div>
                 </form>
             </section>
         <?php else: ?>
-            <section> 
-                <h1>Obsah této stránky je k dispozici pouze administrátorům</h1> 
+            <section class="info-box"> 
+                <h1>Obsah této stránky je k&nbsp; dispozici pouze administrátorům</h1> 
             </section>
         <?php endif; ?>
     </main> 

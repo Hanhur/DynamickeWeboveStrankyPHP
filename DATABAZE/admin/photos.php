@@ -58,9 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <div> 
                                 <img src=<?= "../uploads/" . $user_id . "/" . $one_image["image_name"] ?>> 
                             </div>
-                            <div>
-                                <a href=<?= "../uploads/" . $user_id . "/" . $one_image["image_name"] ?> download="stazeny-soubor">Stáhnout</a>
-                                <a href="delete-photo.php?id=<?= $user_id ?>&image_name=<?= $one_image["image_name"] ?>">Smazat</a>
+                            <div class="images-btn">
+                                <a class="images-btn-download" href=<?= "../uploads/" . $user_id . "/" . $one_image["image_name"] ?> download="stazeny-soubor">Stáhnout</a>
+                                <a class="images-btn-delete" href="delete-photo.php?id=<?= $user_id ?>&image_name=<?= $one_image["image_name"] ?>">Smazat</a>
                             </div>
                         </div> 
                     <?php endforeach; ?>

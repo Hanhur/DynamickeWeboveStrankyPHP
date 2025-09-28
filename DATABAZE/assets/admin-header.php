@@ -4,7 +4,7 @@
 
 <header>
     <div class="logo"> 
-        <a href="../index.php">
+        <a href="students.php">
             <img src="../img/hogwarts-logo.png" alt=""> 
         </a>
     </div>
